@@ -1,0 +1,93 @@
+apiVersion: elasticsearch.aws.jet.crossplane.io/v1alpha2
+kind: Domain
+metadata:
+  name: my-elasticsearch
+spec:
+  forProvider:
+    elasticsearchVersion: "7.10"
+    region: us-east-1
+
+    ebsOptions:
+      - ebsEnabled: true
+        volumeSize: 180
+
+    vpcOptions:
+      - securityGroupIds:
+          - "sg-"
+        subnetIds:
+          - "subnet-"
+          - "subnet-"
+
+    clusterConfig:
+      - dedicatedMasterEnabled: false
+        instanceType: "m5.2xlarge.elasticsearch"
+        instanceCount: 4
+        zoneAwarenessConfig:
+          - availabilityZoneCount: 2
+
+    snapshotOptions:
+      - automatedSnapshotStartHour: 23
+
+    nodeToNodeEncryption:
+      - enabled: true
+
+    encryptAtRest:
+      - enabled: true
+
+    domainEndpointOptions:
+      - enforceHttps: true
+        tlsSecurityPolicy: "Policy-Min-TLS-1-2-2019-07"
+
+    logPublishingOptions:
+      - cloudwatchLogGroupArn: "arn:aws:logs:us-east-1:112233445566:log-group:/my-log-group:*"
+        logType: "ES_APPLICATION_LOGS"
+      - cloudwatchLogGroupArn: "arn:aws:logs:us-east-1:112233445566:log-group:/my-log-group:*"
+        logType: "INDEX_SLOW_LOGS"
+      - cloudwatchLogGroupArn: "arn:aws:logs:us-east-1:112233445566:log-group:/my-log-group:*"
+        logType: "SEARCH_SLOW_LOGS"
+
+---
+apiVersion: elasticsearch.aws.jet.crossplane.io/v1alpha2
+kind: DomainPolicy
+metadata:
+  name: my-elasticsearch
+spec:
+  forProvider:
+    region: us-east-1
+    domainRefs:
+      name: my-elasticsearch
+    accessPolicies: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Principal": {
+              "AWS": [
+                "*"
+              ]
+            },
+            "Action": [
+              "es:*"
+            ],
+            "Resource": "arn:aws:es:us-east-1:112233445566:domain/my-elasticsearch"
+          }
+        ]
+      }
+
+---
+apiVersion: elasticsearch.aws.jet.crossplane.io/v1alpha2
+kind: DomainSAMLOptions
+metadata:
+  name: my-elasticsearch
+spec:
+  forProvider:
+    region: us-east-1
+    domainRefs:
+      name: my-elasticsearch
+    samlOptions:
+      - enabled: true
+        idp:
+          - entityId: "my-identity"
+            metadataContent: |
+              <metadata file xml>

@@ -35,6 +35,7 @@ import (
 	"github.com/crossplane-contrib/provider-jet-aws/config/eks"
 	"github.com/crossplane-contrib/provider-jet-aws/config/elasticache"
 	"github.com/crossplane-contrib/provider-jet-aws/config/elasticloadbalancing"
+	"github.com/crossplane-contrib/provider-jet-aws/config/elasticsearch"
 	"github.com/crossplane-contrib/provider-jet-aws/config/globalaccelerator"
 	"github.com/crossplane-contrib/provider-jet-aws/config/iam"
 	"github.com/crossplane-contrib/provider-jet-aws/config/kms"
@@ -162,6 +163,11 @@ var IncludedResources = []string{
 	"aws_globalaccelerator_accelerator",
 	"aws_globalaccelerator_endpoint_group",
 	"aws_globalaccelerator_listener",
+
+	// Elasticsearch
+	"aws_elasticsearch_domain",
+	"aws_elasticsearch_domain_policy",
+	"aws_elasticsearch_domain_saml_options",
 }
 
 var skipList = []string{
@@ -215,6 +221,7 @@ func GetProvider() *tjconfig.Provider {
 		route53.Configure,
 		neptune.Configure,
 		mq.Configure,
+		elasticsearch.Configure,
 	} {
 		configure(pc)
 	}

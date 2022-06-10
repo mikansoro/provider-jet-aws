@@ -63,6 +63,9 @@ import (
 	subnetgroup "github.com/crossplane-contrib/provider-jet-aws/internal/controller/elasticache/subnetgroup"
 	user "github.com/crossplane-contrib/provider-jet-aws/internal/controller/elasticache/user"
 	usergroup "github.com/crossplane-contrib/provider-jet-aws/internal/controller/elasticache/usergroup"
+	domain "github.com/crossplane-contrib/provider-jet-aws/internal/controller/elasticsearch/domain"
+	domainpolicy "github.com/crossplane-contrib/provider-jet-aws/internal/controller/elasticsearch/domainpolicy"
+	domainsamloptions "github.com/crossplane-contrib/provider-jet-aws/internal/controller/elasticsearch/domainsamloptions"
 	lb "github.com/crossplane-contrib/provider-jet-aws/internal/controller/elbv2/lb"
 	lblistener "github.com/crossplane-contrib/provider-jet-aws/internal/controller/elbv2/lblistener"
 	lbtargetgroup "github.com/crossplane-contrib/provider-jet-aws/internal/controller/elbv2/lbtargetgroup"
@@ -166,6 +169,9 @@ func Setup(mgr ctrl.Manager, o controller.Options) error {
 		subnetgroup.Setup,
 		user.Setup,
 		usergroup.Setup,
+		domain.Setup,
+		domainpolicy.Setup,
+		domainsamloptions.Setup,
 		lb.Setup,
 		lblistener.Setup,
 		lbtargetgroup.Setup,
