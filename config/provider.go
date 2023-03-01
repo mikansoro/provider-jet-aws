@@ -36,6 +36,7 @@ import (
 	"github.com/crossplane-contrib/provider-jet-aws/config/eks"
 	"github.com/crossplane-contrib/provider-jet-aws/config/elasticache"
 	"github.com/crossplane-contrib/provider-jet-aws/config/elasticloadbalancing"
+	"github.com/crossplane-contrib/provider-jet-aws/config/elasticsearch"
 	"github.com/crossplane-contrib/provider-jet-aws/config/globalaccelerator"
 	"github.com/crossplane-contrib/provider-jet-aws/config/grafana"
 	"github.com/crossplane-contrib/provider-jet-aws/config/iam"
@@ -174,6 +175,11 @@ var IncludedResources = []string{
 	"aws_globalaccelerator_endpoint_group",
 	"aws_globalaccelerator_listener",
 
+	// Elasticsearch
+	"aws_elasticsearch_domain",
+	"aws_elasticsearch_domain_policy",
+	"aws_elasticsearch_domain_saml_options",
+
 	// AWS Managed Grafana
 	"aws_grafana_workspace$",
 	"aws_grafana_role_association$",
@@ -238,6 +244,7 @@ func GetProvider() *tjconfig.Provider {
 		route53.Configure,
 		neptune.Configure,
 		mq.Configure,
+		elasticsearch.Configure,
 	} {
 		configure(pc)
 	}
