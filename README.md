@@ -1,3 +1,9 @@
+# 🚨 PLEASE NOTE 🚨: This repository is no longer maintained. See details in https://github.com/crossplane/terrajet/issues/308
+
+# New users: Use its successor [Official AWS Provider](https://github.com/upbound/provider-aws) instead.
+# Existing users: Follow the migration guide [here](https://github.com/upbound/upjet/blob/main/docs/manual-migration-guide-to-op.md).
+
+---
 # Terrajet AWS Provider
 
 `provider-jet-aws` is a [Crossplane](https://crossplane.io/) provider that is
